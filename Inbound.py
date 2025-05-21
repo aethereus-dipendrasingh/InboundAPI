@@ -154,18 +154,18 @@ def get_salesforce_file(sf,query,file_type, is_csv):
                 logger.info("CSV file downloaded successfully"+response.text)
                 if(is_csv):
                     # Read the CSV content into a pandas DataFrame
-                    csv_content = StringIO(response.text)
-                    df = pd.read_csv(io.BytesIO(csv_content), on_bad_lines='warn')
+                    csv_content = io.BytesIO(response.text)
+                    df = pd.read_csv(csv_content, on_bad_lines='warn')
                     logger.info("CSV file converted to DataFrame successfully1")
                     logger.info(df.head())
                 else:
-                    csv_content = StringIO(response.text)
+                    csv_content = io.BytesIO(response.text)
                     if(file_type == 'LIDS'):
-                        df = pd.read_csv(io.BytesIO(csv_content), delimiter="\t", on_bad_lines='warn')
+                        df = pd.read_csv(csv_content, delimiter="\t", on_bad_lines='warn')
                         logger.info("CSV file converted to DataFrame successfully2")
                         logger.info(df.head())
                     else:
-                        df = pd.read_csv(io.BytesIO(csv_content), delimiter=",", on_bad_lines='warn')
+                        df = pd.read_csv(csv_content, delimiter=",", on_bad_lines='warn')
                         logger.info("CSV file converted to DataFrame successfully3")
                         logger.info(df.head())
                     logger.info(df.head())
