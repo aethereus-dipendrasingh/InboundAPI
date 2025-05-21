@@ -576,7 +576,7 @@ def prepare_contact_medical_license_records(sf, df, field_mapping):
                 value = str(row.get(source_field)).strip()
                 logger.info(f"Value: {value}")
 
-                if value is not None and ("#" in str(value) or "nan" in str(value) or "NAN" in str(value)):
+                if value is not None and ("#" in str(value) or str(value) == 'nan' or str(value) == 'NAN'):
                     continue
 
                 if "gender" in source_field.lower() and pd.notna(value):
@@ -604,7 +604,7 @@ def prepare_contact_medical_license_records(sf, df, field_mapping):
                 value = str(row.get(source_field)).strip()
                 logger.info(f"Value: {value}")
 
-                if value is not None and ("#" in str(value) or "nan" in str(value) or "NAN" in str(value)):
+                if value is not None and ("#" in str(value) or str(value) == 'nan' or str(value) == 'NAN'):
                     continue
                 
                 if "npi" in source_field.lower() and pd.notna(value):
