@@ -581,7 +581,7 @@ def prepare_contact_medical_license_records(sf, df, field_mapping):
 
                 if "npi" in source_field.lower() and pd.notna(value):
                     # Remove trailing zeros from NPI
-                    value = value.rstrip('.0') if value.endswith('.0') else value
+                    value = value[:10]
                     logger.info(f"Processed NPI {value} for field {source_field}")
 
                 if "gender" in source_field.lower() and pd.notna(value):
