@@ -579,6 +579,11 @@ def prepare_contact_medical_license_records(sf, df, field_mapping):
                 if value is not None and ("#" in str(value) or str(value) == 'nan' or str(value) == 'NAN'):
                     continue
 
+                if "npi" in source_field.lower() and pd.notna(value):
+                    # Remove trailing zeros from NPI
+                    value = value.rstrip('.0') if value.endswith('.0') else value
+                    logger.info(f"Processed NPI {value} for field {source_field}")
+
                 if "gender" in source_field.lower() and pd.notna(value):
                     if value == "M":
                         value = "Male"
@@ -607,11 +612,6 @@ def prepare_contact_medical_license_records(sf, df, field_mapping):
                 if value is not None and ("#" in str(value) or str(value) == 'nan' or str(value) == 'NAN'):
                     continue
                 
-                if "npi" in source_field.lower() and pd.notna(value):
-                    # Remove trailing zeros from NPI
-                    value = value.rstrip('.0') if value.endswith('.0') else value
-                    logger.info(f"Processed NPI {value} for field {source_field}")
-
                 if "state" in source_field.lower() and pd.notna(value):
                     # Map state codes to state names
                     if value in state_code_map:
